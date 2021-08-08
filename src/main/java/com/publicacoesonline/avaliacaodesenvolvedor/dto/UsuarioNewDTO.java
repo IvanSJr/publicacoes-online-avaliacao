@@ -2,10 +2,12 @@ package com.publicacoesonline.avaliacaodesenvolvedor.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.publicacoesonline.avaliacaodesenvolvedor.entities.Processo;
 import com.publicacoesonline.avaliacaodesenvolvedor.entities.Reu;
@@ -22,8 +24,13 @@ public class UsuarioNewDTO implements Serializable{
 	@Email
 	private String email;
 	private String senha;
+	@Column(unique = true)
 	private Integer codigoProcesso;
+	@NotEmpty(message = "Esse campo não pode ser vazio")
 	private String nomeReu;
+	@Column(unique = true)
+	@CPF
+	@NotEmpty(message = "Esse campo não pode ser vazio")
 	private String cpfReu;
 	
 	public UsuarioNewDTO() {
@@ -36,8 +43,8 @@ public class UsuarioNewDTO implements Serializable{
 		email = usuario.getEmail();
 		senha = usuario.getSenha();
 		codigoProcesso = proceso.getCodigoProcesso();
-		nomeReu = reu.getNome();
-		cpfReu = reu.getCpf();
+		nomeReu = reu.getNomeReu();
+		cpfReu = reu.getCpfReu();
 	}
 
 	public Integer getId() {

@@ -1,5 +1,6 @@
 package com.publicacoesonline.avaliacaodesenvolvedor.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,7 @@ public class Services {
 	
 	@Transactional
 	public Usuario insert(Usuario obj) {
-		obj.setId(null);
+		obj.setId(obj.getId());
 		return usuarioRepository.save(obj);
 	}
 	
@@ -62,16 +63,13 @@ public class Services {
 		Reu reu = new Reu(null, objDto.getNomeReu(), objDto.getCpfReu(), processo);
 		usuario.getProcesso().add(processo);
 		processo.getReus().add(reu);
+		usuario.setProcesso(Arrays.asList(processo));
+		processo.setReus(Arrays.asList(reu));
 		return usuario;
 	}
 	
 	public List<Processo> findAllLawsuits(){
 		return processoRepository.findAll();
-	}
-	
-	public Page<Processo> findPageLawsuits(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return processoRepository.findAll(pageRequest);
 	}
 	
 	@Transactional

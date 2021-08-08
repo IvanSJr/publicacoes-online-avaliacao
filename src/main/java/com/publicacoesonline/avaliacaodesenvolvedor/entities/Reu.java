@@ -22,12 +22,10 @@ public class Reu implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotEmpty(message = "Esse campo não pode ser vazio")
-	private String nome;
+	private String nomeReu;
 	@Column(unique = true)
 	@CPF
-	@NotEmpty(message = "Esse campo não pode ser vazio")
-	private String cpf;
+	private String cpfReu;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -42,8 +40,8 @@ public class Reu implements Serializable{
 			@CPF @NotEmpty(message = "Esse campo não pode ser vazio") String cpf, Processo processo) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
+		this.nomeReu = nome;
+		this.cpfReu = cpf;
 		this.processo = processo;
 	}
 
@@ -55,20 +53,20 @@ public class Reu implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeReu() {
+		return nomeReu;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeReu(String nome) {
+		this.nomeReu = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getCpfReu() {
+		return cpfReu;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setCpfReu(String cpf) {
+		this.cpfReu = cpf;
 	}
 
 	public Processo getProcesso() {

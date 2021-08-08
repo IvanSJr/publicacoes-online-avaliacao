@@ -22,7 +22,7 @@ public class UsuarioDTO implements Serializable{
 	private String senha;
 	
 	public UsuarioDTO() {
-		
+
 	}
 	
 	public UsuarioDTO(Usuario usuario) {

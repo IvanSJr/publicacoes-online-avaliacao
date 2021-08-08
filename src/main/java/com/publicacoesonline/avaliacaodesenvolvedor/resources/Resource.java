@@ -58,7 +58,7 @@ public class Resource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert (@Valid @RequestBody UsuarioNewDTO objDto){
+	public ResponseEntity<Void> insert (@RequestBody UsuarioNewDTO objDto){
 		Usuario obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -78,18 +78,8 @@ public class Resource {
 		return ResponseEntity.ok().body(objs);
 	}
 	
-	@GetMapping(value = "/processos/page")
-	public ResponseEntity<Page<Processo>> findPageLawsuits(
-			@RequestParam(value = "page", defaultValue = "0") Integer page, 
-			@RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage, 
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, 
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Processo> objs = service.findPageLawsuits(page, linesPerPage, orderBy, direction);
-		return ResponseEntity.ok().body(objs);
-	}
-	
-	@PostMapping(value = "/{id}/processos")
-	public ResponseEntity<Void> insertLawsuits(@PathVariable Integer id,@Valid @RequestBody Processo obj){
+	@PostMapping(value = "/processos")
+	public ResponseEntity<Void> insertLawsuits(@RequestBody Processo obj){
 		obj = service.insertLawsuits(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -102,8 +92,8 @@ public class Resource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PostMapping(value = "/{id}/processos/reu")
-	public ResponseEntity<Void> insertDefendant(@PathVariable Integer id,@Valid @RequestBody Reu obj){
+	@PostMapping(value = "/processos/{id}/reu")
+	public ResponseEntity<Void> insertDefendant(@Valid @PathVariable Integer id, @RequestBody Reu obj){
 		obj = service.insertDefendant(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();

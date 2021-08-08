@@ -9,20 +9,20 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.navi.springapiloja.services.exceptions.DataIntegrityViolationException;
-import com.navi.springapiloja.services.exceptions.ObjectNotFoundException;
+import com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.DataIntegrityViolationException;
+import com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
-	@ExceptionHandler(com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> ObjectNotFound(com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.ObjectNotFoundException e, HttpServletRequest request){
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<StandardError> ObjectNotFound(ObjectNotFoundException e, HttpServletRequest request){
 		
 		StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
-	@ExceptionHandler(com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.DataIntegrityViolationException.class)
+	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<StandardError> DataIntegrityViolation(com.publicacoesonline.avaliacaodesenvolvedor.services.exceptions.DataIntegrityViolationException e, HttpServletRequest request){
 		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -30,7 +30,7 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validationException(MethodArgumentNotValidException e, HttpServletRequest request){
-		ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de valida��o", System.currentTimeMillis());
+		ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de validação", System.currentTimeMillis());
 		
 		for (FieldError x: e.getBindingResult().getFieldErrors()) {
 			error.addError(x.getField(), x.getDefaultMessage());
