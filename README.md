@@ -1,4 +1,4 @@
-# publicacoes-online-valiacao
+# publicacoes-online-avaliacao
 
 ## End-points
 
